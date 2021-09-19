@@ -8,20 +8,22 @@ namespace Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Fornecedor> builder)
         {
-            builder.HasKey(f => f.Id);
+            builder.HasKey(p => p.Id);
 
-            builder.Property(f => f.Nome)
+            builder.Property(p => p.Nome)
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
-            builder.Property(f => f.Documento)
+            builder.Property(p => p.Documento)
                 .IsRequired()
                 .HasColumnType("varchar(14)");
 
+            // 1 : 1 => Fornecedor : Endereco
             builder.HasOne(f => f.Endereco)
                 .WithOne(e => e.Fornecedor);
 
-            builder.HasMany(f => f.Produto)
+            // 1 : N => Fornecedor : Produtos
+            builder.HasMany(f => f.Produtos)
                 .WithOne(p => p.Fornecedor)
                 .HasForeignKey(p => p.FornecedorId);
 

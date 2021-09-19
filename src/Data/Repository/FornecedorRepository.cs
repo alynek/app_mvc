@@ -20,7 +20,7 @@ namespace Data.Repository
         public async Task<Fornecedor> ObterFornecedorProdutosEEndereco(Guid id)
         {
             return await Db.Fornecedores.AsNoTracking()
-                .Include(p => p.Produto)
+                .Include(p => p.Produtos)
                 .Include(e => e.Endereco)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
