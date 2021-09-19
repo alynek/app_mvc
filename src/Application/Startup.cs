@@ -1,5 +1,7 @@
 using Application.Data;
+using Business.Interfaces;
 using Data.Context;
+using Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +37,11 @@ namespace Application
             services.AddControllersWithViews();
 
             services.AddRazorPages();
+
+            services.AddScoped<AppDbContext>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
