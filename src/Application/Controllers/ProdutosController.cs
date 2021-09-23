@@ -2,9 +2,11 @@
 using AutoMapper;
 using Business.Interfaces;
 using Business.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Application.Controllers
@@ -54,9 +56,17 @@ namespace Application.Controllers
 
             if (!ModelState.IsValid) return View(produtoViewModel);
 
+            var imagemPrefixo = Guid.NewGuid() + "_";
+            if(! await CarregarArquivo(produtoViewModel.ImagemUpload, imagemPrefixo))
+            {
+                return View(produtoViewModel);
+            }
+
+            produtoViewModel.Imagem = imagemPrefixo + produtoViewModel.ImagemUpload.FileName;
+
             await _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoViewModel));
 
-            return View(produtoViewModel);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(Guid id)
@@ -118,6 +128,26 @@ namespace Application.Controllers
             produto.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
 
             return produto;
+        }
+
+        private async Task<bool> CarregarArquivo(IFormFile imagemUpload, string imagemPrefixo)
+        {
+            if (imagemUpload.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imagemPrefixo + imagemUpload.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using(var stream = new FileStream(path, FileMode.Create))
+            {
+                await imagemUpload.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }
