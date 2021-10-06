@@ -10,7 +10,7 @@
     <a class="btn btn-info" asp-action="Create">Adicionar</a>
 </p>
 <table class="table table-hover">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -31,14 +31,14 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Documento)
+                @this.FormataDocumento(item.TipoFornecedor, item.Documento)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ativo)
             </td>
             <td class="text-right">
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a> 
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span></a> 
+                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a> 
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span></a> 
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
             </td>
         </tr>
