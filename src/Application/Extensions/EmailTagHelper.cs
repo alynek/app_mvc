@@ -5,7 +5,7 @@ namespace Application.Extensions
 {
     public class EmailTagHelper : TagHelper
     {
-        public string EmailDomain { get; set; } = "App";
+        public string EmailDomain { get; set; } = "appmvc";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "a";
