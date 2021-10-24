@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
 using System;
 
-namespace Application
+namespace Application.Extensions
 {
     public static class RazorExtensions
     {

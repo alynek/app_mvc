@@ -1,5 +1,7 @@
 ﻿using Application.Extensions;
 using Business.Interfaces;
+using Business.Notifications;
+using Business.Services;
 using Data.Context;
 using Data.Repository;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
@@ -16,6 +18,10 @@ namespace Application.Configurations
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddSingleton<IValidationAttributeAdapterProvider, MoedalValidationAttributeAdapterProvider>();
+
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
 
             return services;
         }
