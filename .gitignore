@@ -6,6 +6,11 @@
 #folder containing the images
 src/Application/wwwroot/imagens/
 
+#Migrations
+src/Application/Data/Migrations
+src/Data/Migrations
+
+
 # User-specific files
 *.rsuser
 *.suo
