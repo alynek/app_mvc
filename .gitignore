@@ -7,8 +7,8 @@
 src/Application/wwwroot/imagens/
 
 #Migrations
-src/Application/Data/Migrations
-src/Data/Migrations
+src/Application/Data/Migrations/
+src/Data/Migrations/
 
 
 # User-specific files
